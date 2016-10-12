@@ -3,16 +3,11 @@ import {Deferred} from '../utils/util.deferred';
 import {UserModel} from './user.model';
 
 export class UserService extends ParseWrapper{
-    private User;
-
-    constructor(){
-        super();
-        this.User = new this.Parse.User();
-    }
+    constructor(){ super("User"); }
 
     public save(user: UserModel): Promise<any> {
         let deferred = new Deferred();
-        this.User
+        this.Parse.User
             .save(user)
                 .then((data)=> {
                     deferred.resolve(data);
@@ -27,9 +22,9 @@ export class UserService extends ParseWrapper{
 
     public getUserById(id: string){
         let deferred = new Deferred();
-        let q = new this.Parse.Query(this.User);
+        let q = super.query();
         q.equalTo('username', id);
-        q.find()            
+        q.find()
                 .then((data)=>{
                     deferred.resolve(data);
                 },
@@ -42,13 +37,10 @@ export class UserService extends ParseWrapper{
 
     public getAllUsers(){
         let deferred = new Deferred();
-
-        let q = new this.Parse.Query(this.User);
-        q.find()
+        super.query().find()
             .then(users => deferred.resolve(users),
                 err => deferred.reject(err));
         return deferred.toPromise();
     }
-
 
 }

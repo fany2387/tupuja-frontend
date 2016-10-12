@@ -14,14 +14,12 @@ import {HomeComponent} from './home/home.component';
 import {ProfileComponent} from './profile/profile.component';
 import {AutionListComponent} from './auction/auction-list.component';
 
-
 @NgModule({
   imports: [BrowserModule, routing],
   providers: [BidService, ParseWrapper, AuctionService, UserService],
   declarations: [AppComponent, AuctionComponent, NavbarComponent,HomeComponent, ProfileComponent,AutionListComponent],
   bootstrap: [AppComponent]
 })
-
 export class AppModule {
-
+  
 }

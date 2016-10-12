@@ -1,9 +1,23 @@
 export class ParseWrapper {
     
-    protected Parse = require('parse').Parse;;
-    
-    constructor(){
-        //this.initParseConnection('kvn+?QM6h)^5m.4t','http://localhost:1337/parse');
+    protected Parse = require('parse').Parse;
+
+    private name;
+    private modelObject;
+
+    constructor(klass : string){
+        console.log("initializing for " + klass);
+        this.initParseConnection('kvn+?QM6h)^5m.4t','https://tupuja-backend-app.herokuapp.com/parse');
+        this.name = klass || "";
+        this.modelObject = this.Parse.Object.extend(name);
+    }
+
+    public query() {
+        return new this.Parse.Query(this.modelObject);
+    }
+
+    public model() {
+        return this.modelObject;
     }
 
     /**
@@ -13,6 +27,5 @@ export class ParseWrapper {
         this.Parse.initialize(apiKey);
         this.Parse.serverURL = serverUrl;
     }
-
 
 }
